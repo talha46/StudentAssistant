@@ -34,7 +34,7 @@ namespace Student_Assistant_App.Controllers
                     db.SaveChanges();
                 }
                 ModelState.Clear();
-                ViewBag.Message = acc.FirstName + " " + acc.LastName + " Succefully Registered!";
+                ViewBag.Message = acc.FirstName + " " + acc.LastName + " Successfully Registered!";
             }
             return View();
         }
