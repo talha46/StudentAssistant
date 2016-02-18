@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "AdminView";
+}
+
+@if (Session["UserId"] != null)
+{
+    <div>
+    <h4>Hello Admin @Session["FirstName"].ToString()</h4>
+    <div>
+        @Html.ActionLink("Register Student", "Register")
+        </div>
+    <div>
+    @Html.ActionLink("Logout", "Logout", "Account")
+        </div>
+        </div>
+}
+

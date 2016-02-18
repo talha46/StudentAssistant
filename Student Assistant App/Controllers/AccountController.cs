@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Student_Assistant_App.Models;
 
 namespace Student_Assistant_App.Controllers
@@ -55,9 +56,37 @@ namespace Student_Assistant_App.Controllers
 
                 if(usr !=null)
                 {
-                    Session["UserID"] = usr.UserID.ToString();
-                    Session["Email"] = usr.Email.ToString();
-                    return RedirectToAction("LoggedIn");
+                    if(usr.FirstName.ToString().Contains("parent") || usr.FirstName.ToString().Contains("Parent"))
+                    {
+                        Session["UserID"] = usr.UserID.ToString();
+                        Session["Email"] = usr.Email.ToString();
+                        Session["FirstName"] = usr.FirstName.ToString();
+                        Session["LastName"] = usr.LastName.ToString();
+                        return RedirectToAction("ParentView");
+                    }
+
+                    if (usr.Email.ToString().Equals("chaudary.talha@gmail.com", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        Session["UserID"] = usr.UserID.ToString();
+                        Session["Email"] = usr.Email.ToString();
+                        Session["FirstName"] = usr.FirstName.ToString();
+                        return RedirectToAction("AdminView");
+                    }
+                    else 
+                    if(usr.Email.ToString().Equals("mustafa61@gmail.com", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        Session["UserID"] = usr.UserID.ToString();
+                        Session["Email"] = usr.Email.ToString();
+                        Session["FirstName"] = usr.FirstName.ToString();
+                        return RedirectToAction("Accountant");
+                    }
+                    else
+                    {
+                        Session["UserID"] = usr.UserID.ToString();
+                        Session["Email"] = usr.Email.ToString();
+                        Session["FirstName"] = usr.FirstName.ToString();
+                        return RedirectToAction("LoggedIn");
+                    }
                 }
                 else
                 {
@@ -72,6 +101,49 @@ namespace Student_Assistant_App.Controllers
         public ActionResult LoggedIn()
         {
             if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult ParentView()
+        {
+            if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Login", "Account");
+        }
+
+        public ActionResult AdminView()
+        {
+            if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult Accountant()
+        {
+            if(Session["UserID"] != null)
             {
                 return View();
             }

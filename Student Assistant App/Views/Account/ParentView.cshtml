@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "ParentView";
+}
+
+
+
+<!-- Single statement block -->
+
+<div>
+    @{ var myMessage = Session["Email"]; }
+<h2>Hello Parent @myMessage</h2>
+    </div>
+<!-- Inline expression or variable -->
+<p>You can view the reports of your child here.</p>
+
+<!--	Multi-statement block -->
+@{
+    var greeting = "Welcome to our site!";
+    var weekDay = DateTime.Now.DayOfWeek;
+    var greetingMessage = greeting + " Today is: " + weekDay;
+}
+<p>The greeting is: @greetingMessage</p>
